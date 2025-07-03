@@ -28,6 +28,50 @@
         </div>
     </div>
 
+    <body class="bg-light">
+    <div class="shadow">
+        <div class="d-flex justify-content-between align-items-center mb-3 p-4">
+            <h3><i class="bi bi-kanban"></i> Kanban To-Do</h3>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                <i class="fa fa-plus"></i> Add Task
+            </button>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row kanban-board py-4">
+            <div class="col-md-4">
+                <div class="kanban-lane" id="todoLane">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5>To Do</h5>
+                        <button class="btn btn-primary rounded-circle" data-bs-toggle="modal"
+                            data-bs-target="#addTaskModal">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="task-cards mt-4">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="kanban-lane" id="todoLane">
+                    <h5>In Progress</h5>
+                    <div class="task-cards mt-4">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="kanban-lane" id="todoLane">
+                    <h5>Done</h5>
+                    <div class="task-cards mt-4">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- BOOTSTRAP PLUGINS-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
