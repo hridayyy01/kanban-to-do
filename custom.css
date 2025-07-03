@@ -1,0 +1,14 @@
+.kanban-board {
+    background-color: #F5F6F7;
+    min-height: 85vh;
+}
+.kanban-lane {
+    background-color: #F1F3F5;
+    padding: 1rem;
+    border-radius: 10px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+.text-sm {
+    font-size: .7rem;
+}
