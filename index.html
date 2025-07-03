@@ -38,9 +38,30 @@
                             data-bs-target="#addTaskModal">
                             <i class="fa fa-plus"></i>
                         </button>
-                        <div class="task-cards mt-4">
-
                     </div>
+                    <div class="task-cards mt-4">
+                        <div class="task-card card">
+                            <div class="card-body">
+                                <h4>Task Title</h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, adipisci.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="badge text-bg-primary">Personal</span>
+                                        <span class="badge text-bg-secondary">Work</span>
+                                        <span class="badge text-bg-success">Low</span>
+                                        <span class="badge text-bg-warning">Medium</span>
+                                        <span class="badge text-bg-danger">High</span>
+                                    </div>
+                                    <div>
+                                        <button class="edit-btn btn btn-sm btn-warning"><i
+                                                class="fa fa-pencil"></i></button>
+                                        <button class="delete-btn btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteTaskModal"><i
+                                                class="fa fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,6 +80,70 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- ADD TASK MODAL -->
+    <div class="modal fade modal-lg" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="addTaskLabel">Add Task</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addTaskForm">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="taskTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="taskTitle" placeholder="Enter Task Title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskDescription" class="form-label">Title</label>
+                            <textarea class="form-control" id="taskDescription"
+                                placeholder="Enter Task Description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskTag" class="form-label">Tag</label>
+                            <select id="taskTag" class="form-select">
+                                <option>Work</option>
+                                <option>Personal</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskPriority" class="form-label">Priority</label>
+                            <select id="taskPriority" class="form-select">
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELETE TASK MODAL -->
+    <div class="modal fade " id="deleteTaskModal" tabindex="-1" aria-labelledby="deleteTaskLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="deleteTaskLabel">Remove Task?</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                        <p class="mb-1">Are you sure you want to delete this task?</p>
+                        <p class="text-danger text-sm">Note: you wont be able to recover it later! :(</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Don't Delete!</button>
+                        <button type="submit" class="btn btn-danger">Delete Task</button>
+                    </div>
             </div>
         </div>
     </div>
