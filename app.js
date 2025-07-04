@@ -10,6 +10,16 @@ const doneLane = document.querySelector('#doneLane');
 
 const taskCardsCreationZone = document.querySelector('#todoLane .task-cards');
 
+let tasks = [];
+
+function loadFromLocalStorage() {
+    tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+}
+
+function storeToLocalStorage() {
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+}
+
 const tagColor = {
     Personal: 'text-bg-primary',
     Work: 'text-bg-secondary'
@@ -30,12 +40,13 @@ function handleAddTask(evt) {
     evt.preventDefault();
     const addTaskModal = bootstrap.Modal.getInstance('#addTaskModal');
     const task = getTaskObjectToCreate();
-
+    tasks.push(task);
     const taskCard = createTaskCard(task);
     taskCardsCreationZone.appendChild(taskCard);
 
     addTaskModal.hide();
     clearAddTasksFields();
+    storeToLocalStorage();
 }
 
 function clearAddTasksFields() {
@@ -89,5 +100,18 @@ function getTaskObjectToCreate() {
     return task;
 }
 
+function createAndShowAllTasks() {
+    //Remove all the current tasks and then create and show all the tasks
+    while(taskCardsCreationZone.firstChild) {
+        taskCardsCreationZone.firstChild.remove();
+    }
+    tasks.forEach(function(task) {
+        const taskCard = createTaskCard(task);
+        taskCardsCreationZone.appendChild(taskCard);
+    });
+}
+
 //Main
 registerEvents();
+loadFromLocalStorage();
+createAndShowAllTasks();
