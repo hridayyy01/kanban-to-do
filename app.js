@@ -1,4 +1,6 @@
 // DOM ELEMENTS
+const kanbanBoard = document.querySelector('.kanban-board');
+const btnDeleteTask = document.querySelector("#btnDeleteTask");
 const taskTitle = document.querySelector('#taskTitle');
 const taskDescription = document.querySelector('#taskDescription');
 const taskTag = document.querySelector('#taskTag');
@@ -34,6 +36,8 @@ const prorityColor = {
 function registerEvents() {
     // Register all the events in this function
     addtaskForm.addEventListener('submit', handleAddTask);
+    kanbanBoard.addEventListener('click', handlePrepareToDelete);
+    btnDeleteTask.addEventListener('click', handleDeleteTask);
 }
 
 function handleAddTask(evt) {
@@ -47,6 +51,49 @@ function handleAddTask(evt) {
     addTaskModal.hide();
     clearAddTasksFields();
     storeToLocalStorage();
+}
+
+function showDeleteModal() {
+    const deleteModal = new bootstrap.Modal('#deleteTaskModal');
+    deleteModal.show();
+}
+function hideDeleteModal() {
+    const deleteModal = bootstrap.Modal.getInstance('#deleteTaskModal');
+    deleteModal.hide();
+}
+
+function handlePrepareToDelete(evt) {
+    const targetElement = evt.target;
+    let taskId;
+    if(targetElement.classList.contains('delete-btn')) {
+        showDeleteModal();
+        // console.log(targetElement.getAttribute("data-task-id"));
+        // console.log(targetElement.dataset);
+        taskId = targetElement.dataset.taskId;
+        btnDeleteTask.dataset.taskId = taskId;
+    } else if(targetElement.parentElement.classList.contains("delete-btn")) {
+        showDeleteModal();
+        taskId = targetElement.parentElement.dataset.taskId;
+        btnDeleteTask.dataset.taskId = taskId;
+    }
+}
+
+function handleDeleteTask(evt) {
+    const taskId = evt.target.dataset.taskId;
+    const oldTasksLength = tasks.length;
+    if(taskId) {
+        tasks = tasks.filter(function(task) {
+            return task.id != taskId
+        });
+        storeToLocalStorage();
+        const newTasksLength = tasks.length;
+        if(oldTasksLength !== newTasksLength) {
+            hideDeleteModal();
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance('#deleteSuccessToast');
+            toastBootstrap.show();
+            createAndShowAllTasks();
+        }
+    }
 }
 
 function clearAddTasksFields() {
@@ -72,11 +119,12 @@ function createTaskCard(task) {
                         <span class="badge ${prorityColor[task.priority]}">${task.priority}</span>
                     </div>
                     <div>
-                        <button class="edit-btn btn btn-sm btn-warning"><i
-                        class="fa fa-pencil"></i></button>
-                        <button class="delete-btn btn btn-sm btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#deleteTaskModal"><i
-                        class="fa fa-trash"></i></button>
+                        <button class="edit-btn btn btn-sm btn-warning">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button class="delete-btn btn btn-sm btn-danger" data-task-id = "${task.id}">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -91,12 +139,12 @@ function getTaskObjectToCreate() {
     const taskPriorityValue = taskPriority.value; 
 
     const task = {
+        id: Date.now(),
         title: taskTitleValue,
         description: taskDescriptionValue,
         tag: taskTagValue,
         priority: taskPriorityValue
     };
-
     return task;
 }
 
